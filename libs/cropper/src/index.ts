@@ -1,1 +1,1 @@
-export * from './lib/cropper';
+export * from "./Cropper";

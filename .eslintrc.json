@@ -4,6 +4,8 @@
   "extends": ["alloy", "alloy/react", "alloy/typescript"],
   "plugins": ["@nrwl/nx", "react-hooks", "import", "prefer-arrow", "unused-imports"],
   "rules": {
+    "@typescript-eslint/ban-types": ["warn"],
+
     // * ------------------------------------------------ react hooks
 
     "react-hooks/rules-of-hooks": "error",
