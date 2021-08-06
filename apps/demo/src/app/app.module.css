@@ -126,3 +126,9 @@
   width: 16px;
   margin-right: 4px;
 }
+
+/* ------------ custom ------------ */
+
+html {
+  font-size: 16px;
+}
