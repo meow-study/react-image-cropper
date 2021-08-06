@@ -1,7 +1,59 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "extends": ["alloy", "alloy/react", "alloy/typescript"],
+  "plugins": ["@nrwl/nx", "react-hooks", "import", "prefer-arrow", "unused-imports"],
+  "rules": {
+    // * ------------------------------------------------ react hooks
+
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    // * ------------------------------------------------ lines
+
+    "max-len": ["error", 120],
+    "max-lines": ["warn", 120],
+    "max-lines-per-function": ["warn", 80],
+
+    // * ------------------------------------------------ import
+
+    "import/no-default-export": "warn",
+    "import/no-extraneous-dependencies": "error",
+
+    // * ------------------------------------------------ ts
+
+    // "@typescript-eslint/no-explicit-any": "error",
+
+    // * ------------------------------------------------ arrow function
+
+    "prefer-arrow/prefer-arrow-functions": [
+      "warn",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ],
+    "prefer-arrow-callback": ["warn", { "allowNamedFunctions": true }],
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+
+    // * ------------------------------------------------ misc
+
+    "max-params": "warn",
+    "no-unreachable": "warn",
+
+    // * ------------------------------------------------ unused
+
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "error",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ],
+
+    /** 注意，现在有全局的 logger 系统，可以控制是否开启，如果要在业务中保留 console.log，请用 logger.debug */
+    "no-console": "warn"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -31,5 +83,6 @@
       "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     }
-  ]
+  ],
+  "settings": { "react": { "version": "detect" } }
 }

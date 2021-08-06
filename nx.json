@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "cropper": {
+      "tags": []
+    },
     "demo": {
       "tags": []
     },

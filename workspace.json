@@ -1,6 +1,27 @@
 {
   "version": 2,
   "projects": {
+    "cropper": {
+      "root": "libs/cropper",
+      "sourceRoot": "libs/cropper/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/cropper/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/cropper"],
+          "options": {
+            "jestConfig": "libs/cropper/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "demo": {
       "root": "apps/demo",
       "sourceRoot": "apps/demo/src",
