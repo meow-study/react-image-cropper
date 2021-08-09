@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { CropViewer } from "./CropViewer";
 import { CropDashed } from "./CropDashed";
 import { CropCenter } from "./CropCenter";
-import { CropFace } from "./CropFace";
+import { CropDrag } from "./CropDrag";
 import { CropLine } from "./CropLine";
 import { CropPoint } from "./CropPoint";
 import { css, cx } from "@emotion/css";
@@ -43,7 +43,7 @@ export const CropBox: FC = () => {
       <CropViewer />
       <CropDashed />
       <CropCenter />
-      <CropFace />
+      <CropDrag />
       <CropLine />
       <CropPoint />
     </div>

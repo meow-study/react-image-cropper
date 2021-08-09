@@ -9,7 +9,7 @@ import { removeEmpty } from "./utils/convert/removeEmpty";
 
 // * --------------------------------------------------------------------------- store
 
-export const cropStore = store({
+export const cropStore = store<CropperStoreType>({
   ready: false, // 图片是否加载完成
   val: "12312312",
   originalUrl: "",
@@ -44,6 +44,15 @@ export interface CropperProps {
   rotatable?: boolean;
   background?: boolean;
   checkOrientation?: boolean;
+}
+
+export interface CropperStoreType {
+  ready: boolean; // 图片是否加载完成
+  val: string;
+  originalUrl: string;
+  naturalWidth: number;
+  naturalHeight: number;
+  aspectRatio: number;
 }
 
 // * --------------------------------------------------------------------------- comp
