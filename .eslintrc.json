@@ -4,6 +4,8 @@
   "extends": ["alloy", "alloy/react", "alloy/typescript"],
   "plugins": ["@nrwl/nx", "react-hooks", "import", "prefer-arrow", "unused-imports"],
   "rules": {
+    "@typescript-eslint/ban-types": ["warn"],
+
     // * ------------------------------------------------ react hooks
 
     "react-hooks/rules-of-hooks": "error",
@@ -51,7 +53,6 @@
       { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
     ],
 
-    /** 注意，现在有全局的 logger 系统，可以控制是否开启，如果要在业务中保留 console.log，请用 logger.debug */
     "no-console": "warn"
   },
   "overrides": [

@@ -1,13 +1,7 @@
 import { tw } from "twind";
-import { css } from "@emotion/css";
-import cx from "classnames";
+import { css, cx } from "@emotion/css";
 
-/* eslint-disable-next-line */
-export interface CropperProps {}
-
-export const Cropper = (props: CropperProps) => {
-  console.log(props);
-
+export const Cropper = () => {
   return (
     <div className={cx(tw`flex`, style)}>
       <h1>Welcome to Cropper!</h1>
