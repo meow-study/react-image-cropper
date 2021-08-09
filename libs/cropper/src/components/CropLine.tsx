@@ -8,13 +8,14 @@ import { getCropStore } from "@react-image-cropper/cropper";
 
 // * --------------------------------------------------------------------------- constant
 
-const MIN_CROP_LENGTH = 20;
+export const MIN_CROP_LENGTH = 20;
 
 // * --------------------------------------------------------------------------- serv
 
-// TODO: 这里的代码写得太屎了// XuYuCheng 2021/08/9
+// TODO: 这里的代码写得太屎了，使用线代简化计算// XuYuCheng 2021/08/9
 // TODO: left 和 top 拖动会有抖动（抖归抖，拖拽性能居然不错，很跟手）// XuYuCheng 2021/08/9
-const useCropLine = (direction: "left" | "top" | "right" | "bottom") => {
+
+const useCropLineMove = (direction: "left" | "top" | "right" | "bottom") => {
   const { naturalWidth: imgWidth, naturalHeight: imgHeight } = useValue(getCropStore);
   const { width: cropWidth, height: cropHeight, top: cropTop, left: cropLeft } = useValue(getCropBox);
 
@@ -63,10 +64,10 @@ const useCropLine = (direction: "left" | "top" | "right" | "bottom") => {
 // * --------------------------------------------------------------------------- comp
 
 export const CropLine: FC = () => {
-  const { moveProps: moveLeftProps } = useCropLine("left");
-  const { moveProps: moveTopProps } = useCropLine("top");
-  const { moveProps: moveRightProps } = useCropLine("right");
-  const { moveProps: moveBottomProps } = useCropLine("bottom");
+  const { moveProps: moveLeftProps } = useCropLineMove("left");
+  const { moveProps: moveTopProps } = useCropLineMove("top");
+  const { moveProps: moveRightProps } = useCropLineMove("right");
+  const { moveProps: moveBottomProps } = useCropLineMove("bottom");
 
   return (
     <>
@@ -80,7 +81,7 @@ export const CropLine: FC = () => {
 
 // * --------------------------------------------------------------------------- util
 
-const limitSize = (val: number, min: number, max: number) => (val < min ? min : val > max ? max : val);
+export const limitSize = (val: number, min: number, max: number) => (val < min ? min : val > max ? max : val);
 
 // * --------------------------------------------------------------------------- style
 
