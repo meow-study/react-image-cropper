@@ -40,8 +40,7 @@ export const CropViewer: FC = () => {
 // * --------------------------------------------------------------------------- style
 
 const imgWrapper = css`
-  outline: 1px solid #39f;
-  outline-color: rgba(51, 153, 255, 0.75);
+  outline: 2px solid #01d9e1;
 `;
 
 // prevent img tag width out of shape

@@ -80,7 +80,7 @@ export const Container: FC = ({ children }) => {
         className={cx("cropper-container", tw`w-full h-full overflow-auto relative`, background && container)}
       >
         <div className={cx("cropper-wrapper", tw`relative`, wrapper)} style={wrapperStyle}>
-          <div className={tw`relative w-full h-full`}>{children}</div>
+          <div className={tw`relative w-full h-full select-none`}>{children}</div>
         </div>
       </div>
     );

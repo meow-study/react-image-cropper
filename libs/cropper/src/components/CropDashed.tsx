@@ -1,13 +1,14 @@
 import type { FC } from "react";
 import { css, cx } from "@emotion/css";
+import { tw } from "twind";
 
 // * --------------------------------------------------------------------------- comp
 
 export const CropDashed: FC = () => {
   return (
     <>
-      <span className={cx("cropper-dashed dashed-h", dashedStyle, hDashedStyle)} />
-      <span className={cx("cropper-dashed dashed-v", dashedStyle, vDashedStyle)} />
+      <span className={cx("cropper-dashed dashed-h", tw`block absolute opacity-50`, dashedStyle, hDashedStyle)} />
+      <span className={cx("cropper-dashed dashed-v", tw`block absolute opacity-50`, dashedStyle, vDashedStyle)} />
     </>
   );
 };
@@ -33,8 +34,5 @@ const vDashedStyle = css`
 `;
 
 const dashedStyle = css`
-  border: 0 dashed #eee;
-  display: block;
-  opacity: 0.5;
-  position: absolute;
+  border: 0 solid #eee;
 `;

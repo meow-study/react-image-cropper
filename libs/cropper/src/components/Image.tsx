@@ -67,16 +67,9 @@ const useImageSize = () => {
     if (!container) return;
 
     const { width, height } = naturalSize;
-    const containerWidth = container.width ?? 0;
-    const containerHeight = container.height ?? 0;
-    const canvasWidth = width;
-    const canvasHeight = height;
-
     return {
-      width: canvasWidth,
-      height: canvasHeight,
-      // top: containerHeight > canvasHeight + 60 ? (containerHeight - canvasHeight - 60) / 2 : undefined,
-      // left: containerWidth > canvasWidth + 60 ? (containerWidth - canvasWidth - 60) / 2 : undefined,
+      width,
+      height,
     };
   }, [container, naturalSize]);
 
@@ -97,19 +90,10 @@ const useImage = () => {
 export const Image: FC = () => {
   const { src, imgRef, style, handleOnLoad } = useImage();
 
-  const testRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const testDom = testRef.current;
-    if (testDom) {
-      console.log(testDom.offsetLeft, 1111111111);
-    }
-  }, [testRef]);
-
   return useMemo(() => {
     return (
-      <div className={cx("cropper-canvas", tw`absolute`, image)} style={style} ref={testRef}>
-        {style && <img src={src} ref={imgRef} onLoad={handleOnLoad} alt="" />}
+      <div className={cx("cropper-canvas", tw`absolute`, image)} style={style}>
+        {style && <img alt="" src={src} ref={imgRef} onLoad={handleOnLoad} />}
         <div className={cx(tw`absolute inset-0`, skin)} />
       </div>
     );
@@ -118,10 +102,8 @@ export const Image: FC = () => {
 
 // * --------------------------------------------------------------------------- style
 
-/* eslint-disable max-lines */
 const image = css`
   background-color: transparent;
-  //padding: 30px;
 `;
 
 const skin = css`

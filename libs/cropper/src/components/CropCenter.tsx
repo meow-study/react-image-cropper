@@ -1,20 +1,16 @@
 import type { FC } from "react";
 import { css, cx } from "@emotion/css";
+import { tw } from "twind";
+
+// * --------------------------------------------------------------------------- comp
 
 export const CropCenter: FC = () => {
-  return <span className={cx("cropper-center", center)} />;
+  return <span className={cx("cropper-center", tw`block absolute h-0 w-0 left-2/4 top-2/4 opacity-75`, center)} />;
 };
 
 // * --------------------------------------------------------------------------- style
 
 const center = css`
-  display: block;
-  height: 0;
-  left: 50%;
-  opacity: 0.75;
-  position: absolute;
-  top: 50%;
-  width: 0;
   &::before {
     height: 1px;
     left: -3px;
