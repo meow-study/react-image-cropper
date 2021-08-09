@@ -97,9 +97,18 @@ const useImage = () => {
 export const Image: FC = () => {
   const { src, imgRef, style, handleOnLoad } = useImage();
 
+  const testRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const testDom = testRef.current;
+    if (testDom) {
+      console.log(testDom.offsetLeft, 1111111111);
+    }
+  }, [testRef]);
+
   return useMemo(() => {
     return (
-      <div className={cx("cropper-canvas", tw`absolute`, image)} style={style}>
+      <div className={cx("cropper-canvas", tw`absolute`, image)} style={style} ref={testRef}>
         {style && <img src={src} ref={imgRef} onLoad={handleOnLoad} alt="" />}
         <div className={cx(tw`absolute inset-0`, skin)} />
       </div>

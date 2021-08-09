@@ -61,6 +61,14 @@ const useContainer = () => {
 
 // * --------------------------------------------------------------------------- comp
 
+/**
+ * three layers totally
+ *
+ *  1. control scroll
+ *  2. padding support
+ *  3. canvas: children.left = 0
+ *
+ */
 export const Container: FC = ({ children }) => {
   const { background } = useValue(getCropProps);
   const { containerRef, wrapperStyle } = useContainer();
@@ -72,7 +80,7 @@ export const Container: FC = ({ children }) => {
         className={cx("cropper-container", tw`w-full h-full overflow-auto relative`, background && container)}
       >
         <div className={cx("cropper-wrapper", tw`relative`, wrapper)} style={wrapperStyle}>
-          {children}
+          <div className={tw`relative w-full h-full`}>{children}</div>
         </div>
       </div>
     );
