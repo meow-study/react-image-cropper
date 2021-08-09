@@ -1,6 +1,6 @@
 const REGEXP_DATA_URL_HEAD = /^data:.*,/;
 
-export const dataURLToArrayBuffer = (dataURL: string) => {
+export const dataUrlToArrayBuffer = (dataURL: string) => {
   const base64 = dataURL.replace(REGEXP_DATA_URL_HEAD, "");
   const binary = atob(base64);
   const arrayBuffer = new ArrayBuffer(binary.length);

@@ -1,8 +1,10 @@
 import type { FC } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { rafBatch, useValue } from "../utils";
-import { cropStore, getCropStore } from "@react-image-cropper/cropper";
+import { cropStore, getCropProps } from "@react-image-cropper/cropper";
 import { tw } from "twind";
+import { css, cx } from "@emotion/css";
+import { getContainerSize } from "./Container";
 
 // * --------------------------------------------------------------------------- type
 
@@ -11,16 +13,13 @@ interface NaturalSizeType {
   height: number;
 }
 
-// * --------------------------------------------------------------------------- comp
+// * --------------------------------------------------------------------------- serv
 
-/**
- * used to init image data, do not display
- */
-export const Image: FC<{ src?: string }> = ({ src }) => {
+const useImageNaturalSize = () => {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [naturalSize, setNaturalSize] = useState<NaturalSizeType>({
-    width: NaN,
-    height: NaN,
+    width: 0,
+    height: 0,
   });
 
   const handleOnLoad = () => {
@@ -30,35 +29,92 @@ export const Image: FC<{ src?: string }> = ({ src }) => {
     }
   };
 
+  // share image size info to store
   useEffect(() => {
     const { width, height } = naturalSize;
 
-    if (!isNaN(width) && !isNaN(height)) {
+    rafBatch(() => {
+      cropStore.set((data) => {
+        data.naturalWidth = width;
+        data.naturalHeight = height;
+        data.aspectRatio = width / height;
+      });
+    }).then();
+  }, [naturalSize]);
+
+  // image is ready
+  useEffect(() => {
+    const { width, height } = naturalSize;
+    if (width !== 0 || height !== 0) {
       rafBatch(() => {
         cropStore.set((data) => {
-          data.naturalWidth = width;
-          data.naturalHeight = height;
-          data.aspectRatio = width / height;
+          data.ready = true;
         });
       }).then();
     }
   }, [naturalSize]);
 
-  // * --------------------------- test
-
-  const url = useValue(getCropStore);
-  useEffect(() => {
-    console.log(url, 33333);
-  }, [url]);
-
-  return (
-    <img
-      alt=""
-      src={src}
-      ref={imgRef}
-      onLoad={handleOnLoad}
-      style={{ zIndex: -1 }}
-      className={tw`absolute top-0 left-0 max-w-0 max-h-0 min-w-0 min-h-0 opacity-0`}
-    />
-  );
+  return { imgRef, naturalSize, handleOnLoad };
 };
+
+// * ---------------------------
+
+const useImageSize = () => {
+  const container = useValue(getContainerSize);
+  const { imgRef, naturalSize, handleOnLoad } = useImageNaturalSize();
+
+  const style = useMemo(() => {
+    if (!container) return;
+
+    const { width, height } = naturalSize;
+    const containerWidth = container.width ?? 0;
+    const containerHeight = container.height ?? 0;
+    const canvasWidth = width;
+    const canvasHeight = height;
+
+    return {
+      width: canvasWidth,
+      height: canvasHeight,
+      // top: containerHeight > canvasHeight + 60 ? (containerHeight - canvasHeight - 60) / 2 : undefined,
+      // left: containerWidth > canvasWidth + 60 ? (containerWidth - canvasWidth - 60) / 2 : undefined,
+    };
+  }, [container, naturalSize]);
+
+  return { style, imgRef, handleOnLoad };
+};
+
+// * ---------------------------
+
+const useImage = () => {
+  const { style, imgRef, handleOnLoad } = useImageSize();
+  const { src } = useValue(getCropProps);
+
+  return { src, imgRef, style, handleOnLoad };
+};
+
+// * --------------------------------------------------------------------------- comp
+
+export const Image: FC = () => {
+  const { src, imgRef, style, handleOnLoad } = useImage();
+
+  return useMemo(() => {
+    return (
+      <div className={cx("cropper-canvas", tw`absolute`, image)} style={style}>
+        {style && <img src={src} ref={imgRef} onLoad={handleOnLoad} alt="" />}
+        <div className={cx(tw`absolute inset-0`, skin)} />
+      </div>
+    );
+  }, [handleOnLoad, imgRef, src, style]);
+};
+
+// * --------------------------------------------------------------------------- style
+
+/* eslint-disable max-lines */
+const image = css`
+  background-color: transparent;
+  //padding: 30px;
+`;
+
+const skin = css`
+  background-color: rgba(255, 255, 255, 0.5);
+`;

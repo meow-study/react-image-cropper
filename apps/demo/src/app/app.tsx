@@ -11,8 +11,8 @@ const mockUrl = "https://picsum.photos/id/1000/1200/600";
 export const App = () => {
   return (
     <div className={cx(tw`w-screen h-screen flex pt-2 items-center justify-center overflow-hidden`, layout)}>
-      <div className={cx(tw`overflow-auto`, cropperWrapper)}>
-        <Cropper src={mockUrl} />
+      <div className={cx(tw`overflow-auto flex-1`, cropperWrapper)}>
+        <Cropper src={mockUrl} rotate={90} />
       </div>
     </div>
   );
@@ -26,6 +26,7 @@ const layout = css`
 
 const cropperWrapper = css`
   background-color: #fff;
-  width: 800px;
+  margin-left: 300px;
+  margin-right: 300px;
   height: 700px;
 `;

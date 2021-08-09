@@ -1,11 +1,11 @@
 import type { FC } from "react";
+import { memo, useMemo } from "react";
+import { tw } from "twind";
 
-export const Canvas: FC = () => {
-  return (
-    <div className="cropper-wrapper">
-      <div className="cropper-canvas">
-        <img alt="" />
-      </div>
-    </div>
-  );
-};
+// * --------------------------------------------------------------------------- comp
+
+export const Canvas: FC = memo(() => {
+  return useMemo(() => {
+    return <div className={tw`absolute`}>123123</div>;
+  }, []);
+});
