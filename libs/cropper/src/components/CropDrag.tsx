@@ -21,7 +21,7 @@ const useCropDrag = () => {
       rafBatch(() => {
         cropBoxStore.set((data) => {
           const [newTop, newLeft] = [data.top + deltaY, data.left + deltaX];
-          const [resTop, resLeft] = [limit(newTop, maxTop), limit(newLeft, maxLeft)];
+          const [resTop, resLeft] = [limitPos(newTop, maxTop), limitPos(newLeft, maxLeft)];
           data.top = resTop;
           data.left = resLeft;
         });
@@ -47,7 +47,7 @@ export const CropDrag: FC = () => {
 // * --------------------------------------------------------------------------- util
 
 // TODO: 默认画布左上角 top 和 left 为 0，具体的数值用 imageLeft / imageTop 表示更好 // XuYuCheng 2021/08/9
-const limit = (newVal: number, maxVal: number) => {
+const limitPos = (newVal: number, maxVal: number) => {
   if (newVal < 0) return 0;
   return newVal > maxVal ? maxVal : newVal;
 };

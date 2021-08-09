@@ -52,4 +52,8 @@ export const CropBox: FC = () => {
 
 // * --------------------------------------------------------------------------- style
 
-const cropBox = css``;
+const cropBox = css`
+  z-index: 1;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-transform: translateZ(0) scale(1, 1);
+`;
