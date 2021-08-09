@@ -4,8 +4,11 @@ import { tw } from "twind";
 
 // * --------------------------------------------------------------------------- comp
 
+/**
+ * used to enhance crop func
+ */
 export const Canvas: FC = memo(() => {
   return useMemo(() => {
-    return <div className={tw`absolute`}>123123</div>;
+    return <div className={tw`absolute`} />;
   }, []);
 });
