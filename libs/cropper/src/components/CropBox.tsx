@@ -32,8 +32,8 @@ export const getCropBox = () => cropBoxStore.get();
 const useCropBox = () => {
   const { top, left, width, height } = useValue(getCropBox);
   // transform 会造成抖动
-  // return { width, height, left, top, transform: `translateX(${left}px) translateY(${top}px)` };
-  return { width, height, left, top };
+  return { width, height, transform: `translateX(${left}px) translateY(${top}px)` };
+  // return { width, height, left, top };
 };
 
 // * --------------------------------------------------------------------------- comp
