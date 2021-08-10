@@ -6,3 +6,4 @@ export * from "./determine/isJpegURL";
 export * from "./state/stateUtil";
 // * ---------------------------
 export * from "./convert/dataUrlToArrayBuffer";
+export * from "./convert/getTransformStyle";

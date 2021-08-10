@@ -63,6 +63,8 @@ const useCropLineMove = (direction: "left" | "top" | "right" | "bottom") => {
 
 // * --------------------------------------------------------------------------- comp
 
+// TODO: 这里可以优化成 list.map => comp 的形式，但是代码相差不大 // XuYuCheng 2021/08/9
+
 export const CropLine: FC = () => {
   const { moveProps: moveLeftProps } = useCropLineMove("left");
   const { moveProps: moveTopProps } = useCropLineMove("top");

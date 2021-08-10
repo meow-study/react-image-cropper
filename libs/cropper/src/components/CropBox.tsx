@@ -7,6 +7,7 @@ import { CropLine } from "./CropLine";
 import { CropPoint } from "./CropPoint";
 import { css, cx } from "@emotion/css";
 import { store, useValue } from "../utils";
+import { tw } from "twind";
 
 // * --------------------------------------------------------------------------- type
 
@@ -20,7 +21,7 @@ export interface CropBoxSizeType {
 // * --------------------------------------------------------------------------- store
 
 // TODO: remove mockData// XuYuCheng 2021/08/9
-const mockCropBox: CropBoxSizeType = { top: 300, left: 400, width: 700, height: 200 };
+const mockCropBox: CropBoxSizeType = { top: 100, left: 100, width: 400, height: 200 };
 
 // TODO: 初始值为百分之 80（根据图片宽高和百分比计算出的 size 值） // XuYuCheng 2021/08/9
 export const cropBoxStore = store<CropBoxSizeType>(mockCropBox);
@@ -30,7 +31,9 @@ export const getCropBox = () => cropBoxStore.get();
 
 const useCropBox = () => {
   const { top, left, width, height } = useValue(getCropBox);
-  return { width, height, transform: `translateX(${left}px) translateY(${top}px)` };
+  // transform 会造成抖动
+  // return { width, height, left, top, transform: `translateX(${left}px) translateY(${top}px)` };
+  return { width, height, left, top };
 };
 
 // * --------------------------------------------------------------------------- comp
@@ -39,7 +42,7 @@ export const CropBox: FC = () => {
   const cropSizeStyle = useCropBox();
 
   return (
-    <div className={cx("cropper-crop-box", cropBox)} style={cropSizeStyle}>
+    <div className={cx("cropper-crop-box", tw`absolute`, cropBox)} style={cropSizeStyle}>
       <CropViewer />
       <CropDashed />
       <CropCenter />
